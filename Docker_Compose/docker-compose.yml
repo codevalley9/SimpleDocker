@@ -1,0 +1,17 @@
+version: '3.6'  # Версия синтаксиса Docker Compose
+
+services:
+  # Контейнер server-kekw
+  server-kekw:
+    build:
+      .  # Сборка контейнера из текущего контекста
+    # Здесь отсутствует указание на image, значит образ будет собран из сборки
+
+  # Контейнер proxy с nginx
+  proxy:
+    image: nginx  # Используем образ nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Монтируем файл nginx.conf в контейнер
+    ports:
+      - 80:8080  # Маппинг порта 80 хоста на порт 8080 контейнера
+    command: ["nginx", "-g", "daemon off;"]  # Запуск Nginx 
